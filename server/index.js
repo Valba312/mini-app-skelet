@@ -44,3 +44,14 @@ app.get(/^(?!\/api\/).*/, (_, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
 });
+// Разрешаем встраивание мини-аппа в Telegram
+app.use((req, res, next) => {
+  // На всякий случай снимаем X-Frame-Options, если кто-то его добавил
+  res.removeHeader('X-Frame-Options')
+  // Явно разрешаем Telegram и self
+  res.setHeader(
+    'Content-Security-Policy',
+    "frame-ancestors 'self' https://web.telegram.org https://*.telegram.org;"
+  )
+  next()
+})
