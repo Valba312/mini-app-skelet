@@ -9,6 +9,32 @@ requiredFiles = [".replit", "replit.nix", "package.json", "package-lock.json"]
 channel = "stable-24_11"
 
 [deployment]
-run = ["node", "index.js"]
+run = ["node", "server/index.js"]
 deploymentTarget = "autoscale"
 ignorePorts = false
+
+[[ports]]
+localPort = 8787
+externalPort = 80
+
+[workflows]
+runButton = "Start server"
+
+[[workflows.workflow]]
+name = "Start server"
+mode = "sequential"
+author = 41626845
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm i --prefix client && npm run build --prefix client"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm i --prefix server"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node server/index.js"
+
+
