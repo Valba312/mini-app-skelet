@@ -71,6 +71,8 @@ app.get(/^(?!\/api\/).*/, (_, res) => {
 })
 // ---------------------------------
 
+console.log('BOT_TOKEN set:', !!process.env.BOT_TOKEN)
+
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`)
 })
