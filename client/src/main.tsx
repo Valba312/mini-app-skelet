@@ -1,3 +1,5 @@
+import { mountDevLog } from './utils/devlog'
+mountDevLog()
 import { ensureTelegram } from './utils/ensureTelegram'
 ensureTelegram()
 import React from 'react'
